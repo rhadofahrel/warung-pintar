@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Selamat Datang di Warung Pintar</h1>
+    <h2>Daftar Produk</h2>
+    <div id="produkList"></div>
+
+    <script>
+        async function loadProduk() {
+            try {
+                const res = await fetch("http://localhost:3000/produk");
+                const produk = await res.json();
+                const list = document.getElementById("produkList");
+                list.innerHTML = produk.map(p => `<p>${p.nama_produk} - Rp ${p.harga}</p>`).join('');
+            } catch (error) {
+                console.error('Error loading produk:', error);
+            }
+        }
+
+        loadProduk();
+    </script>
+</body>
+</html>
