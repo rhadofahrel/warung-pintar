@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Warung Pintar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .auth-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            padding: 2rem;
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .auth-logo {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 3rem;
+        }
+
+        .auth-title {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .auth-subtitle {
+            text-align: center;
+            color: #999;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+            font-size: 0.95rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #FF6B35;
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .remember-me input[type="checkbox"] {
+            cursor: pointer;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            color: white;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        .divider {
+            text-align: center;
+            margin: 1.5rem 0;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            display: inline-block;
+            width: 40%;
+            height: 1px;
+            background: #ddd;
+            vertical-align: middle;
+        }
+
+        .divider::before {
+            margin-right: 0.5rem;
+        }
+
+        .divider::after {
+            margin-left: 0.5rem;
+        }
+
+        .signup-section {
+            text-align: center;
+            color: #666;
+        }
+
+        .signup-section a {
+            color: #FF6B35;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .signup-section a:hover {
+            text-decoration: underline;
+        }
+
+        .demo-info {
+            background: #f0f0f0;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .demo-info h4 {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .demo-info code {
+            background: white;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: monospace;
+            color: #FF6B35;
+        }
+
+        .alert {
+            padding: 0.8rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+        }
+
+        .spinner {
+            border: 4px solid #f0f0f0;
+            border-top: 4px solid #FF6B35;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 480px) {
+            .auth-container {
+                padding: 1.5rem;
+            }
+
+            .auth-title {
+                font-size: 1.5rem;
+            }
+
+            .form-options {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <!-- LOGO -->
+        <div class="auth-logo">🍽️</div>
+
+        <!-- TITLE -->
+        <h1 class="auth-title">Warung Pintar</h1>
+        <p class="auth-subtitle">Masuk ke akun Anda</p>
+
+        <!-- ALERT -->
+        <div id="alertBox" class="alert"></div>
+
+        <!-- LOGIN FORM -->
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username atau Email</label>
+                <input 
+                    type="text" 
+                    id="username" 
+                    placeholder="Masukkan username atau email"
+                    required
+                    autocomplete="username"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    placeholder="Masukkan password"
+                    required
+                    autocomplete="current-password"
+                >
+            </div>
+
+            <div class="form-options">
+                <label class="remember-me">
+                    <input type="checkbox" id="rememberMe">
+                    <span>Ingat saya</span>
+                </label>
+            </div>
+
+            <div class="form-buttons">
+                <button type="submit" class="btn btn-login" id="loginBtn">Login</button>
+            </div>
+
+            <div class="loading" id="loadingBox">
+                <div class="spinner"></div>
+            </div>
+        </form>
+
+        <!-- DIVIDER -->
+        <div class="divider">atau</div>
+
+        <!-- SIGNUP SECTION -->
+        <div class="signup-section">
+            <p>Belum punya akun? <a href="./register.html">Daftar sekarang</a></p>
+        </div>
+
+        <!-- DEMO INFO -->
+        <div class="demo-info">
+            <h4>🧪 Demo Login:</h4>
+            <p>
+                <strong>Admin:</strong><br>
+                Username: <code>admin</code><br>
+                Password: <code>admin123</code>
+            </p>
+            <p style="margin-top: 0.5rem;">
+                <strong>Customer:</strong><br>
+                Username: <code>customer</code><br>
+                Password: <code>customer123</code>
+            </p>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="./js/auth.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await handleLogin();
+        });
+
+        async function handleLogin() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+            const alertBox = document.getElementById('alertBox');
+            const loginBtn = document.getElementById('loginBtn');
+            const loadingBox = document.getElementById('loadingBox');
+
+            // Validation
+            if (!username || !password) {
+                showAlert('Username dan password harus diisi', 'danger', alertBox);
+                return;
+            }
+
+            // Show loading
+            loginBtn.style.display = 'none';
+            loadingBox.style.display = 'block';
+
+            try {
+                // Simulate delay
+                await new Promise(resolve => setTimeout(resolve, 800));
+
+                // Get registered users
+                const users = getRegisteredUsers();
+                const user = users.find(u => 
+                    (u.username === username || u.email === username) && 
+                    u.password === password
+                );
+
+                if (user) {
+                    // Login success
+                    const token = generateToken();
+                    const userData = {
+                        id: user.id,
+                        username: user.username,
+                        email: user.email,
+                        role: user.role,
+                        token: token,
+                        loginTime: new Date().toISOString()
+                    };
+
+                    localStorage.setItem('currentUser', JSON.stringify(userData));
+                    
+                    if (rememberMe) {
+                        localStorage.setItem('rememberMe', 'true');
+                        localStorage.setItem('savedUsername', username);
+                    } else {
+                        localStorage.removeItem('rememberMe');
+                        localStorage.removeItem('savedUsername');
+                    }
+
+                    showAlert(`Selamat datang, ${user.username}! Redirecting...`, 'success', alertBox);
+
+                    // Redirect based on role
+                    setTimeout(() => {
+                        if (user.role === 'admin') {
+                            window.location.href = './admin.html';
+                        } else {
+                            window.location.href = './index.html';
+                        }
+                    }, 1500);
+                } else {
+                    showAlert('Username atau password salah!', 'danger', alertBox);
+                    loginBtn.style.display = 'block';
+                    loadingBox.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showAlert('Terjadi kesalahan. Silahkan coba lagi.', 'danger', alertBox);
+                loginBtn.style.display = 'block';
+                loadingBox.style.display = 'none';
+            }
+        }
+
+        function showAlert(message, type, container) {
+            container.textContent = message;
+            container.className = `alert show alert-${type}`;
+            setTimeout(() => {
+                container.classList.remove('show');
+            }, 4000);
+        }
+
+        // Check if user is already logged in
+        window.addEventListener('load', () => {
+            const currentUser = localStorage.getItem('currentUser');
+            if (currentUser) {
+                const user = JSON.parse(currentUser);
+                if (user.role === 'admin') {
+                    window.location.href = './admin.html';
+                } else {
+                    window.location.href = './index.html';
+                }
+            }
+
+            // Load remember me data
+            if (localStorage.getItem('rememberMe') === 'true') {
+                const savedUsername = localStorage.getItem('savedUsername');
+                if (savedUsername) {
+                    document.getElementById('username').value = savedUsername;
+                    document.getElementById('rememberMe').checked = true;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

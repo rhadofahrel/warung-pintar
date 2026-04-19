@@ -1,0 +1,76 @@
+{
+  "menus": [
+    {
+      "id": 1,
+      "nama": "Nasi Goreng Spesial",
+      "harga": 35000,
+      "deskripsi": "Nasi goreng dengan telur, ayam, udang, dan sayuran pilihan. Rasanya gurih dan lezat dengan bumbu khas restoran.",
+      "kategori": "Makanan",
+      "gambar": "https://images.unsplash.com/photo-1609501676725-7186f017a4b2?w=300&h=300&fit=crop",
+      "rating": 4.8
+    },
+    {
+      "id": 2,
+      "nama": "Soto Ayam Tradisional",
+      "harga": 28000,
+      "deskripsi": "Soto ayam dengan kuah tradisional, telur, wortel, dan kentang. Kehangatan dalam setiap gigitan.",
+      "kategori": "Makanan",
+      "gambar": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300&h=300&fit=crop",
+      "rating": 4.7
+    },
+    {
+      "id": 3,
+      "nama": "Iced Lemon Tea",
+      "harga": 18000,
+      "deskripsi": "Teh lemon segar dengan es batu. Minuman penyejuk yang sempurna untuk hari yang panas.",
+      "kategori": "Minuman",
+      "gambar": "https://images.unsplash.com/photo-1563227812-0ea4c4c2e7a8?w=300&h=300&fit=crop",
+      "rating": 4.6
+    },
+    {
+      "id": 4,
+      "nama": "Kue Lapis Legit",
+      "harga": 32000,
+      "deskripsi": "Kue tradisional berlapis-lapis yang nikmat dan kaya rasa. Dibuat dengan resep turun temurun.",
+      "kategori": "Dessert",
+      "gambar": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=300&h=300&fit=crop",
+      "rating": 4.9
+    },
+    {
+      "id": 5,
+      "nama": "Mie Goreng Pedas",
+      "harga": 30000,
+      "deskripsi": "Mie goreng dengan level pedas yang dapat disesuaikan. Dilengkapi telur, bakso, dan sayuran segar.",
+      "kategori": "Makanan",
+      "gambar": "https://images.unsplash.com/photo-1612874472603-ee55e21f4ec7?w=300&h=300&fit=crop",
+      "rating": 4.7
+    },
+    {
+      "id": 6,
+      "nama": "Kopi Arabica Premium",
+      "harga": 25000,
+      "deskripsi": "Kopi arabica pilihan dari perkebunan terbaik. Aroma kuat dan cita rasa yang kompleks.",
+      "kategori": "Minuman",
+      "gambar": "https://images.unsplash.com/photo-1559056199-641a0ac8b3f7?w=300&h=300&fit=crop",
+      "rating": 4.8
+    },
+    {
+      "id": 7,
+      "nama": "Lumpia Shanghai",
+      "harga": 22000,
+      "deskripsi": "Lumpia goreng dengan isian daging, sayuran, dan udang. Gurih, renyah, dan sangat menggugah selera.",
+      "kategori": "Makanan",
+      "gambar": "https://images.unsplash.com/photo-1559329007-40790c361d38?w=300&h=300&fit=crop",
+      "rating": 4.6
+    },
+    {
+      "id": 8,
+      "nama": "Brownies Cokelat",
+      "harga": 20000,
+      "deskripsi": "Brownies homemade dengan cokelat premium. Tekstur lembut dan rasa cokelat yang kaya.",
+      "kategori": "Dessert",
+      "gambar": "https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=300&h=300&fit=crop",
+      "rating": 4.9
+    }
+  ]
+}

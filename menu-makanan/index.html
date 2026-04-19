@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warung Pintar - Menu Makanan Digital</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <!-- HEADER & NAVIGATION -->
+    <header>
+        <div class="navbar">
+            <div class="logo">🍽️ Warung Pintar</div>
+            <nav>
+                <a href="./index.html" class="active">Home</a>
+                <a href="./admin.html" id="adminLink" style="display: none;">Admin</a>
+            </nav>
+            <div class="nav-icons">
+                <button class="icon-btn" onclick="toggleCartModal()" title="Keranjang Belanja">
+                    🛒
+                    <div class="cart-badge" style="display: none;">0</div>
+                </button>
+                <div id="userInfo"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="container">
+        <!-- ALERT CONTAINER -->
+        <div id="alertContainer"></div>
+
+        <!-- HERO SECTION -->
+        <section style="text-align: center; padding: 3rem 0; background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(247, 147, 30, 0.1) 100%); border-radius: 12px; margin-top: 2rem;">
+            <h1 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--dark-color);">🎉 Selamat Datang di Warung Pintar</h1>
+            <p style="font-size: 1.1rem; color: #666; margin-bottom: 2rem;">Jelajahi koleksi menu makanan dan minuman terbaik kami dengan antarmuka yang modern dan user-friendly</p>
+            <p style="color: #999; font-size: 0.95rem;">Pilih menu favorit Anda dan nikmati pengalaman belanja yang menyenangkan</p>
+        </section>
+
+        <!-- SEARCH & FILTER SECTION -->
+        <div class="search-filter-container">
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Cari menu makanan..." 
+                    autocomplete="off"
+                >
+                <button id="searchBtn">🔍 Cari</button>
+            </div>
+            <div class="filter-container">
+                <span style="font-weight: 600; color: var(--dark-color);">Filter:</span>
+                <button class="filter-btn active" data-category="semua">Semua</button>
+                <button class="filter-btn" data-category="Makanan">🍲 Makanan</button>
+                <button class="filter-btn" data-category="Minuman">🥤 Minuman</button>
+                <button class="filter-btn" data-category="Dessert">🍰 Dessert</button>
+            </div>
+        </div>
+
+        <!-- MENU GRID -->
+        <h2 class="section-title">Menu Kami</h2>
+        <p class="section-subtitle">Pilih dari berbagai pilihan makanan dan minuman yang lezat</p>
+        <div class="menu-grid" id="menuGrid">
+            <div class="spinner" style="margin: 2rem auto; grid-column: 1/-1;"></div>
+        </div>
+    </main>
+
+    <!-- SHOPPING CART SIDEBAR -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-sidebar">
+            <div class="cart-header">
+                <h2 style="margin: 0;">🛒 Keranjang Belanja</h2>
+                <button class="cart-close" onclick="closeCartModal()">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <div class="empty-state">
+                    <div class="empty-state-icon">🛒</div>
+                    <h3>Keranjang Kosong</h3>
+                    <p>Mulai belanja sekarang!</p>
+                </div>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span>Rp 0</span>
+                </div>
+                <button class="btn-checkout" onclick="checkout()" disabled>💳 Proses Pembayaran</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Tentang Kami</h3>
+                <p style="color: #ccc; font-size: 0.95rem;">Warung Pintar adalah platform digital untuk memesan makanan dan minuman favorit Anda dengan mudah dan cepat.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Menu</h3>
+                <ul>
+                    <li><a href="#menuGrid">Makanan</a></li>
+                    <li><a href="#menuGrid">Minuman</a></li>
+                    <li><a href="#menuGrid">Dessert</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Layanan</h3>
+                <ul>
+                    <li><a href="#">Pesan Online</a></li>
+                    <li><a href="#">Lacak Pesanan</a></li>
+                    <li><a href="#">Program Loyalitas</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Hubungi Kami</h3>
+                <ul>
+                    <li>📞 +62 812-3456-7890</li>
+                    <li>📧 info@warungpintar.com</li>
+                    <li>📍 Jl. Merdeka No. 123</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Warung Pintar. Semua hak dilindungi. | Dibuat dengan ❤️ untuk Anda</p>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="./js/auth.js"></script>
+    <script src="./js/script.js"></script>
+    <script>
+        // Check auth & show admin link jika admin
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = getCurrentUser();
+            if (!user) {
+                window.location.href = './login.html';
+                return;
+            }
+
+            // Tampilkan admin link jika user adalah admin
+            if (isAdmin()) {
+                document.getElementById('adminLink').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

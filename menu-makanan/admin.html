@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Warung Pintar</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <!-- HEADER & NAVIGATION -->
+    <header>
+        <div class="navbar">
+            <div class="logo">🍽️ Warung Pintar</div>
+            <nav>
+                <a href="./index.html">Home</a>
+                <a href="./admin.html" class="active">Admin</a>
+            </nav>
+            <div class="nav-icons">
+                <button class="icon-btn" onclick="toggleCartModal()" title="Keranjang Belanja">
+                    🛒
+                    <div class="cart-badge" style="display: none;">0</div>
+                </button>
+                <div id="userInfo"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="container">
+        <!-- ALERT CONTAINER -->
+        <div id="alertContainer"></div>
+
+        <!-- PAGE TITLE -->
+        <h1 class="section-title" style="margin-top: 3rem;">⚙️ Panel Admin</h1>
+        <p class="section-subtitle">Kelola menu makanan dan minuman Anda dengan mudah</p>
+
+        <!-- ADMIN CONTAINER -->
+        <div class="admin-container">
+            <!-- FORM SECTION -->
+            <div>
+                <form class="admin-form" id="adminForm">
+                    <h2>Tambah / Edit Menu</h2>
+
+                    <div class="form-group">
+                        <label for="menuNama">Nama Menu *</label>
+                        <input 
+                            type="text" 
+                            id="menuNama" 
+                            placeholder="Contoh: Nasi Goreng Spesial" 
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="menuHarga">Harga (Rp) *</label>
+                        <input 
+                            type="number" 
+                            id="menuHarga" 
+                            placeholder="Contoh: 35000" 
+                            min="0" 
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="menuDeskripsi">Deskripsi *</label>
+                        <textarea 
+                            id="menuDeskripsi" 
+                            placeholder="Jelaskan menu ini dengan detail..." 
+                            required
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="menuKategori">Kategori *</label>
+                        <select id="menuKategori" required>
+                            <option value="">-- Pilih Kategori --</option>
+                            <option value="Makanan">🍲 Makanan</option>
+                            <option value="Minuman">🥤 Minuman</option>
+                            <option value="Dessert">🍰 Dessert</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="menuGambar">URL Gambar</label>
+                        <input 
+                            type="url" 
+                            id="menuGambar" 
+                            placeholder="Contoh: https://images.unsplash.com/photo-..."
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="menuRating">Rating (0-5)</label>
+                        <input 
+                            type="number" 
+                            id="menuRating" 
+                            placeholder="4.5" 
+                            min="0" 
+                            max="5" 
+                            step="0.1"
+                        >
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="submit" class="btn-submit">💾 Simpan Menu</button>
+                        <button type="reset" class="btn-reset">🔄 Reset Form</button>
+                    </div>
+
+                    <p style="font-size: 0.85rem; color: #999; margin-top: 1rem;">
+                        * Field yang wajib diisi
+                    </p>
+                </form>
+            </div>
+
+            <!-- TABLE SECTION -->
+            <div>
+                <div class="admin-list">
+                    <h2>Daftar Menu</h2>
+                    <div style="overflow-x: auto;">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nama Menu</th>
+                                    <th>Harga</th>
+                                    <th>Kategori</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminTableBody">
+                                <tr>
+                                    <td colspan="5" style="text-align: center; padding: 2rem;">
+                                        <div class="spinner" style="margin: 0 auto;"></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ADMIN TIPS -->
+        <div style="background-color: #e3f2fd; border-left: 4px solid var(--primary-color); padding: 1.5rem; margin: 3rem 0; border-radius: 4px;">
+            <h3 style="color: var(--primary-color); margin-bottom: 0.5rem;">💡 Tips Menggunakan Admin Panel</h3>
+            <ul style="color: #1565c0; font-size: 0.95rem; line-height: 1.8;">
+                <li>Isi semua field dengan tanda (*) sebelum menyimpan menu</li>
+                <li>URL Gambar gunakan link gambar dari situs seperti Unsplash atau Pexels</li>
+                <li>Rating menu berkisar dari 0-5, default 4.5 jika tidak diisi</li>
+                <li>Klik tombol "Edit" di tabel untuk mengubah menu yang sudah ada</li>
+                <li>Data menu disimpan di browser (localStorage), bukan di server</li>
+                <li>Untuk production, integrasi dengan backend dan database MySQL</li>
+            </ul>
+        </div>
+    </main>
+
+    <!-- SHOPPING CART SIDEBAR -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-sidebar">
+            <div class="cart-header">
+                <h2 style="margin: 0;">🛒 Keranjang Belanja</h2>
+                <button class="cart-close" onclick="closeCartModal()">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <div class="empty-state">
+                    <div class="empty-state-icon">🛒</div>
+                    <h3>Keranjang Kosong</h3>
+                    <p>Mulai belanja sekarang!</p>
+                </div>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span>Rp 0</span>
+                </div>
+                <button class="btn-checkout" onclick="checkout()" disabled>💳 Proses Pembayaran</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Tentang Kami</h3>
+                <p style="color: #ccc; font-size: 0.95rem;">Warung Pintar adalah platform digital untuk memesan makanan dan minuman favorit Anda dengan mudah dan cepat.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Menu</h3>
+                <ul>
+                    <li><a href="./index.html">Makanan</a></li>
+                    <li><a href="./index.html">Minuman</a></li>
+                    <li><a href="./index.html">Dessert</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Layanan</h3>
+                <ul>
+                    <li><a href="#">Pesan Online</a></li>
+                    <li><a href="#">Lacak Pesanan</a></li>
+                    <li><a href="#">Program Loyalitas</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Hubungi Kami</h3>
+                <ul>
+                    <li>📞 +62 812-3456-7890</li>
+                    <li>📧 info@warungpintar.com</li>
+                    <li>📍 Jl. Merdeka No. 123</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Warung Pintar. Semua hak dilindungi. | Dibuat dengan ❤️ untuk Anda</p>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="./js/auth.js"></script>
+    <script src="./js/script.js"></script>
+    <script>
+        // Check auth - hanya admin yang bisa akses
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = getCurrentUser();
+            if (!user) {
+                window.location.href = './login.html';
+                return;
+            }
+
+            if (!isAdmin()) {
+                alert('Anda tidak memiliki akses ke halaman admin!');
+                window.location.href = './index.html';
+                return;
+            }
+        });
+    </script>
+</body>
+</html>

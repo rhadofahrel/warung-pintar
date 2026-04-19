@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Menu - Warung Pintar</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <!-- HEADER & NAVIGATION -->
+    <header>
+        <div class="navbar">
+            <div class="logo">🍽️ Warung Pintar</div>
+            <nav>
+                <a href="./index.html">Home</a>
+                <a href="./admin.html" id="adminLink" style="display: none;">Admin</a>
+            </nav>
+            <div class="nav-icons">
+                <button class="icon-btn" onclick="toggleCartModal()" title="Keranjang Belanja">
+                    🛒
+                    <div class="cart-badge" style="display: none;">0</div>
+                </button>
+                <div id="userInfo"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="container">
+        <!-- ALERT CONTAINER -->
+        <div id="alertContainer"></div>
+
+        <!-- BREADCRUMB -->
+        <div class="breadcrumb">
+            <a href="./index.html">Home</a>
+            <span>/</span>
+            <span>Detail Menu</span>
+        </div>
+
+        <!-- DETAIL CONTAINER -->
+        <div id="detailContainer" class="detail-container">
+            <div style="text-align: center; padding: 3rem;">
+                <div class="spinner" style="margin: 0 auto;"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- SHOPPING CART SIDEBAR -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-sidebar">
+            <div class="cart-header">
+                <h2 style="margin: 0;">🛒 Keranjang Belanja</h2>
+                <button class="cart-close" onclick="closeCartModal()">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <div class="empty-state">
+                    <div class="empty-state-icon">🛒</div>
+                    <h3>Keranjang Kosong</h3>
+                    <p>Mulai belanja sekarang!</p>
+                </div>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span>Rp 0</span>
+                </div>
+                <button class="btn-checkout" onclick="checkout()" disabled>💳 Proses Pembayaran</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Tentang Kami</h3>
+                <p style="color: #ccc; font-size: 0.95rem;">Warung Pintar adalah platform digital untuk memesan makanan dan minuman favorit Anda dengan mudah dan cepat.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Menu</h3>
+                <ul>
+                    <li><a href="./index.html">Makanan</a></li>
+                    <li><a href="./index.html">Minuman</a></li>
+                    <li><a href="./index.html">Dessert</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Layanan</h3>
+                <ul>
+                    <li><a href="#">Pesan Online</a></li>
+                    <li><a href="#">Lacak Pesanan</a></li>
+                    <li><a href="#">Program Loyalitas</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Hubungi Kami</h3>
+                <ul>
+                    <li>📞 +62 812-3456-7890</li>
+                    <li>📧 info@warungpintar.com</li>
+                    <li>📍 Jl. Merdeka No. 123</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Warung Pintar. Semua hak dilindungi. | Dibuat dengan ❤️ untuk Anda</p>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="./js/auth.js"></script>
+    <script src="./js/script.js"></script>
+    <script>
+        // Check auth
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = getCurrentUser();
+            if (!user) {
+                window.location.href = './login.html';
+                return;
+            }
+
+            // Tampilkan admin link jika user adalah admin
+            if (isAdmin()) {
+                document.getElementById('adminLink').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

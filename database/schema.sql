@@ -16,3 +16,6 @@ CREATE TABLE produk (
     nama_produk VARCHAR(100),
     harga INT
 );
+
+-- update database
+ALTER TABLE users ADD email VARCHAR(100);
